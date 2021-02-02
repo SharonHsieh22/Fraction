@@ -70,6 +70,31 @@ class Fraction {
         }
     }
     
+    public void reduce() {
+        int gcf = gcf(this.n, this.d);
+        this.n = this.n/gcf;
+        this.d = this.d/gcf;
+    }
+    
+    //Static methods
+    public static String multiply(Fraction f1, Fraction f2) {
+        int n = f1.n*f2.n;
+        int d = f1.d*f2.d;
+        return n + "/" + d;
+    }
+    
     //Helpers
-
+    private int gcf(int n1, int n2) {
+        int max = Math.max(n1, n2);
+        int min = Math.min(n1, n2);
+        while(max != min) {
+          int dif = 0;
+          dif = max - min;
+          max = Math.max(dif, min);
+          min = Math.min(dif, min);
+        }
+        return min;
+    }
+    
+    
 }

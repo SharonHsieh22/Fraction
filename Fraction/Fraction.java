@@ -72,19 +72,54 @@ class Fraction {
     
     public void reduce() {
         int gcf = gcf(this.n, this.d);
-        this.n = this.n/gcf;
-        this.d = this.d/gcf;
+        if(this.n != 0) {
+            this.n = this.n/gcf;
+            this.d = this.d/gcf;
+        }
     }
     
-    //Static methods
-    public static String multiply(Fraction f1, Fraction f2) {
-        int n = f1.n*f2.n;
-        int d = f1.d*f2.d;
-        return n + "/" + d;
+    //Static methods: called from the class
+    public static Fraction multiply(Fraction a, Fraction b) {
+        int newN = a.n*b.n;
+        int newD = a.d*b.d;
+        Fraction f = new Fraction(newN, newD);
+        f.reduce();
+        return f;
+    }
+    
+    public static Fraction divide(Fraction a, Fraction b) {
+        int newN = a.n*b.d;
+        int newD = a.d*b.n;
+        Fraction f = new Fraction(newN, newD);
+        if(newD == 0) {
+            System.out.println("Error: denominator is zero.");
+            return a;
+        } else {        
+            f.reduce();
+        }
+        return f;
+    }
+    
+    public static Fraction add(Fraction a, Fraction b) {
+        int newN = a.n*b.d + b.n*a.d;
+        int newD = a.d*b.d;
+        Fraction f = new Fraction(newN, newD);
+        f.reduce();
+        return f;
+    }
+    
+    public static Fraction subtract(Fraction a, Fraction b) {
+        int newN = a.n*b.d - b.n*a.d;
+        int newD = a.d*b.d;
+        Fraction f = new Fraction(newN, newD);
+        f.reduce();
+        return f;
     }
     
     //Helpers
     private int gcf(int n1, int n2) {
+        n1 = Math.abs(n1);
+        n2 = Math.abs(n2);
         int max = Math.max(n1, n2);
         int min = Math.min(n1, n2);
         while(max != min) {

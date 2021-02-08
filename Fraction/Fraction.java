@@ -13,7 +13,7 @@ class Fraction {
     public Fraction(int n, int d) {
         this.n = n;
         if(d == 0) {
-            System.out.println("Error: denominator is zero.");
+            System.out.println("Error: denominator is zero. Denominator set to one.");
             this.d = 1;
         } else {
             this.d = d;
@@ -26,7 +26,7 @@ class Fraction {
         String d = f.substring(slashIndex+1);
         this.n = Integer.parseInt(n);
         if(d.equals("0")) {
-            System.out.println("Error: denominator is zero.");
+            System.out.println("Error: denominator is zero. Denominator set to one");
             this.d = 1;
         } else {
             this.d = Integer.parseInt(d);
@@ -92,7 +92,7 @@ class Fraction {
         int newD = a.d*b.n;
         Fraction f = new Fraction(newN, newD);
         if(newD == 0) {
-            System.out.println("Error: denominator is zero.");
+            System.out.println("Error: denominator is zero. First parameter returned.");
             return a;
         } else {        
             f.reduce();
@@ -118,17 +118,20 @@ class Fraction {
     
     //Helpers
     private int gcf(int n1, int n2) {
-        n1 = Math.abs(n1);
-        n2 = Math.abs(n2);
-        int max = Math.max(n1, n2);
-        int min = Math.min(n1, n2);
-        while(max != min) {
-          int dif = 0;
-          dif = max - min;
-          max = Math.max(dif, min);
-          min = Math.min(dif, min);
-        }
-        return min;
+       if(n1 != 0) {
+            n1 = Math.abs(n1);
+            n2 = Math.abs(n2);
+            int max = Math.max(n1, n2);
+            int min = Math.min(n1, n2);
+            while(max != min) {
+                int dif = 0;
+                dif = max - min;
+                max = Math.max(dif, min);
+                min = Math.min(dif, min);
+            }    
+            return min;
+       }
+       return 1;
     }
     
     
